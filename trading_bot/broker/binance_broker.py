@@ -7,7 +7,6 @@ from binance.exceptions import BinanceAPIException, BinanceOrderException
 # from binance.helpers import date_to_milliseconds
 from binance.helpers import date_to_milliseconds
 
-from trading_bot.broker.broker import Broker
 from pprint import pprint
 
 import pendulum
@@ -198,7 +197,7 @@ class BinanceBroker:
         #     else:
         #     # process message normally
 
-        print(price)
+        # print(price)
 
         if price.get('e') == 'error':
             # close and restart socker
@@ -327,21 +326,24 @@ class BinanceBroker:
 
 
 if __name__ == '__main__':
+    ##
     symbol = 'ETHUSDT'
-
     bb = BinanceBroker(is_live=False)
     pprint(bb.client.get_symbol_info(symbol))
-
     balances = bb.get_account_balance().get('balances')
 
     # bb.get_symbols()
     # pprint(bb.all_symbols)
     #
 
+    ##
+    symbol = 'ETHUSDT'
     ticker = bb.client.get_symbol_ticker(symbol=symbol)
     ticker_true = bb.true_client.get_symbol_ticker(symbol=symbol)
     price = ticker.get('price')
     pprint(price)
+
+    ##
     # adjusted_quantity = bb.get_lot(symbol, price, 0.0001, base='BTC')
     # order = bb.send_market_order(symbol=symbol, quantity=adjusted_quantity, is_buy=True)
     #
